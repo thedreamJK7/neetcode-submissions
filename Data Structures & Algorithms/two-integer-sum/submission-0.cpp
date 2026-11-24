@@ -1,17 +1,16 @@
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        int len = nums.size();
-        vector<int>  res(2, 0);
-        for (int i = 0; len - 1 > i; i++) {
-            for (int j = i + 1; len > j; j++) {
-                if ((nums[i] + nums[j]) == target) {
-                    res[0] = i;
-                    res[1] = j;
-                    return res;
-                }
+    vector<int> twoSum(vector<int>& n, int t) {
+        unordered_map<int, int> nums;
+        for (int i = 0; i < n.size(); i++) {
+            int difference = t - n[i];
+            cout << difference;
+            if (nums.count(difference) != 0) {
+                return {nums[difference], i};
+            } else {
+                nums[n[i]] = i;
             }
         }
-        return res;
+        return {};
     }
 };
