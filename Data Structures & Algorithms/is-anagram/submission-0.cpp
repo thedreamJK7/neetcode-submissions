@@ -1,16 +1,15 @@
 class Solution {
 public:
     bool isAnagram(string s, string t) {
-        if (s.size() != t.size())
-            return false;
-        sort(s.begin(), s.end());
-        sort(t.begin(), t.end());
-        int len = s.size(), i = 0;
-        while (len > i) {
-            if (s[i] != t[i])
-                return false;
-            i++;
+        unordered_map<char, int> s1;
+        unordered_map<char, int> t1;
+
+        for (auto i: s) {
+            s1[i]++;
         }
-        return true;
+        for (auto i: t) {
+            t1[i]++;
+        }
+        return s1 == t1;
     }
 };
