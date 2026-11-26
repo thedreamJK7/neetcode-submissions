@@ -1,34 +1,23 @@
 class Solution {
 public:
     int evalRPN(vector<string>& tokens) {
+        string op = "-+/*";
         stack<int> stk;
-        for (string s: tokens) {
-            if (s == "+" || s == "-" || s == "*" || s == "/") {
+        int res = 0;
+        for (auto it: tokens) {
+            if (op.find(it) != -1) {
                 int a = stk.top();
                 stk.pop();
                 int b = stk.top();
                 stk.pop();
-                if (s == "+") {
-                    b += a;
-                    stk.push(b);
-                    continue;
-                }
-                if (s == "-") {
-                    b -= a;
-                    stk.push(b);
-                }
-                if (s == "*") {
-                    b *= a;
-                    stk.push(b);
-                }
-                if (s == "/") {
-                    b /= a;
-                    stk.push(b);
-                }
-                cout << stk.top();
-                continue;
+                if (it == "+") res = b + a;
+                else if (it == "-") res = b - a;
+                else if (it == "*") res = b * a;
+                else res = b / a;
+                stk.push(res);
+            } else {
+                stk.push(stoi(it));
             }
-            stk.push(std::atoi(s.c_str()));
         }
         return stk.top();
     }
