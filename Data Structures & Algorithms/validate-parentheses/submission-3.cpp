@@ -1,17 +1,23 @@
 class Solution {
 public:
     bool isValid(string s) {
-        if (s.length() % 2 == 1) return false;
+        string o = "{[(";
         stack<char> p;
         for (char c: s) {
-            if (!(p.empty()) && (c == '}' || c == ')' || c == ']')) {
-                if ((p.top() == '{' && c == '}') || (p.top() == '(' && c == ')') ||                     p.top() == '[' && c == ']') {
-                    p.pop();
-                    continue;
+            if (o.find(c) != -1) {
+                p.push(c);
+            } else {
+                if (p.empty()) {
+                    return false;
                 }
-                return (false);
+                char current = p.top();
+                if (!(c == ']' && current == '[' 
+                || c == '}' && current == '{' 
+                || c == ')' && current == '(')) {
+                    return false;
+                }
+                p.pop();
             }
-            p.push(c);
         }
         return p.empty();
     }
