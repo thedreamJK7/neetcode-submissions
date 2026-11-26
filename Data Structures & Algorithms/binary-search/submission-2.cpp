@@ -1,25 +1,18 @@
-const auto fast_io = []() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    return 0;
-}();
-
-
 class Solution {
 public:
-    int search(vector<int>& nums, int target) {
-        int mid;
+    int search(vector<int>& n, int t) {
         int l = 0;
-        int r = nums.size() - 1;
-        while (l <= r) {
-            mid = r - (r - l) / 2;
-            if (nums[mid] == target) {
+        int r = n.size() - 1;
+        int mid = (r - l + 1) / 2;
+        while (r >= l) {
+            if (n[mid] == t) 
                 return mid;
-            } else if (nums[mid] > target) {
+            if (n[mid] > t) {
                 r = mid - 1;
             } else {
-                l = mid + 1; 
+                l = mid + 1;
             }
+            mid = r - (r - l + 1) / 2;
         }
         return -1;
     }
