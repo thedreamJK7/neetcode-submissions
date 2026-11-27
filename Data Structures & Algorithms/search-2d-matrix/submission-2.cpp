@@ -1,35 +1,20 @@
-const auto fast_io = []() {
-    std::ios_base::sync_with_stdio(false);
-    std::cin.tie(nullptr);
-    return 0;
-}();
-
 class Solution {
 public:
-    bool search(vector<int>& nums, int target) {
-        int mid;
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        int rows = matrix.size();
+        int cols = matrix[0].size();
         int l = 0;
-        int r = nums.size() - 1;
-        while (l <= r) {
-            mid = r - (r - l) / 2;
-            if (nums[mid] == target) {
+        int r = rows * cols - 1;
+        while (r >= l) {
+            int mid = l + (r - l) / 2;
+            if (matrix[mid/cols][mid%cols] == target) {
                 return true;
-            } else if (nums[mid] > target) {
+            }
+            if (matrix[mid/cols][mid%cols] > target) {
                 r = mid - 1;
             } else {
-                l = mid + 1; 
+                l = mid + 1;
             }
-        }
-        return false;
-    }
-    bool searchMatrix(vector<vector<int>>& mat, int t) {
-        int matS = mat.size();
-        int i = 0;
-        while (matS > i) {
-            if (search(mat[i], t)) {
-                return true;
-            }
-            i++;
         }
         return false;
     }
